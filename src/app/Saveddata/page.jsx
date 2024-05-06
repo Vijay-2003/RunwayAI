@@ -37,7 +37,7 @@ const Saveddata = () => {
                         </video>
                         <h1 className="text-xl font-bold">GIF:</h1>
                         <img src={savedGifUrl} alt="Generated GIF" className="w-full mb-2" />
-                        <button onClick={clearSavedData} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Clear Saved Data</button>
+                        <button onClick={clearSavedData} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Clear Saved Data</button>
                     </div>
                 ) : (
                     <div>No saved data</div>
