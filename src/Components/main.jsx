@@ -54,7 +54,7 @@ const MainHome = () => {
     <div className="text-white w-full sm:w-[50%] text-center mb-8 z-10 bg-transparent backdrop-blur-lg p-4 rounded-lg border-2 border-blue-900">
         <h1 className="text-xl sm:text-2xl font-bold mb-4">Description:</h1>
         <p className="text-md sm:text-lg">
-            <span className="font-bold">text_prompt (required, string):</span> "a flying bird" <br />
+            <span className="font-bold">text_prompt (required, string):</span> &quot;a flying bird&quot; <br />
             <span className="font-bold">width (optional, int):</span> default to be 1344; output video width <br />
             <span className="font-bold">height (optional, int):</span> default to be 768; output video height <br />
             <span className="font-bold">motion (optional, int):</span> default to be 5; Increase or decrease the intensity of motion in your video. Higher values result in more motion. <br />
