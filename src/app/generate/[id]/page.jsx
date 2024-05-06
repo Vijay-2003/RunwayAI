@@ -7,10 +7,21 @@ const Generate = ({ params }) => {
     const [getdata, setgetdata] = useState({});
     // const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [pageReloaded, setPageReloaded] = useState(false); // State variable to track page reload
+
 
     useEffect(() => {
         fetchData();
     }, [id]); // Fetch data only once on component mount
+
+    useEffect(() => {
+        if (getdata.status === "success" && !pageReloaded) {
+            console.log("page reload initiated");
+            window.location.reload();
+            console.log("page reloaded");
+            setPageReloaded(true); // Ensure the page is reloaded only once
+        }
+    }, []); // Effect runs when getdata.status changes
 
     const fetchData = () => {
         fetch(`https://runwayml.p.rapidapi.com/status?uuid=${id}`, {
@@ -24,9 +35,6 @@ const Generate = ({ params }) => {
             .then((data) => {
                 console.log(data);
                 setgetdata(data);
-                if (data.status === "success") {
-                    window.location.reload(); // Reload the page if status is "success"
-                }
                 // if (data.status !== "success") {
                 //     setTimeout(fetchData, 1000); // Fetch again after 1 second if status is not "success"
                 // } else {
@@ -48,7 +56,7 @@ const Generate = ({ params }) => {
                         <h1 className="flex justify-center items-center text-3xl font-bold mb-4">{getdata.status}</h1>
                         <h1 className='  text-xl font-bold'>Video: </h1>
                         {getdata.url && (
-                            
+
                             <video controls className="mb-4">
                                 <source src={getdata.url} type="video/mp4" />
                                 Your browser does not support the video tag.
@@ -57,7 +65,7 @@ const Generate = ({ params }) => {
                         <h1 className='  text-xl font-bold'>GIF: </h1>
                         <img src={getdata.gif_url} alt="Generated GIF" className="w-full" />
                     </div>
-                ): (
+                ) : (
                     <div>Generating... This will take a few minutes</div>
                 )}
                 {error && <div>Error: {error}</div>}
