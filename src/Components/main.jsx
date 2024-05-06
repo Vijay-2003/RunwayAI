@@ -51,7 +51,7 @@ const MainHome = () => {
 
     return (
 <div className="min-h-screen flex flex-col justify-center items-center relative">
-    <div className="text-white w-full sm:w-[50%] text-center mb-8 z-10 bg-transparent backdrop-blur-lg p-4 rounded-lg border-2 border-blue-900">
+    <div className="text-white w-full sm:w-[50%] text-center mb-8 z-10 shadow-2xl bg-transparent backdrop-blur-lg p-4 rounded-lg border-2 border-blue-900">
         <h1 className="text-xl sm:text-2xl font-bold mb-4">Description:</h1>
         <p className="text-md sm:text-lg">
             <span className="font-bold">text_prompt (required, string):</span> &quot;a flying bird&quot; <br />
