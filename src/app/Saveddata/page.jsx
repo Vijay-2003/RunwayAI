@@ -26,7 +26,7 @@ const Saveddata = () => {
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: `url('https://i.gifer.com/J4o.gif')` }}>
-            <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
+            <div className="text-white max-w-md mx-auto p-8 rounded-lg shadow-md bg-transparent backdrop-blur-lg border-2 border-blue-900">
                 <h1 className="text-3xl font-bold mb-4">Saved Data</h1>
                 {savedVideoUrl && savedGifUrl ? (
                     <div>
