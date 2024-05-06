@@ -5,29 +5,42 @@ const Generate = ({ params }) => {
     const { id } = params;
 
     const [getdata, setgetdata] = useState({});
-    // const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [pageReloaded, setPageReloaded] = useState(false); // State variable to track page reload
 
-
+    // 9d13208c-b3c0-4717-989c-38c559a7bbf8
     useEffect(() => {
         fetchData();
     }, [id]); // Fetch data only once on component mount
 
+
     useEffect(() => {
-        if (getdata.status === "success" && !pageReloaded) {
-            console.log("page reload initiated");
-            window.location.reload();
-            console.log("page reloaded");
-            setPageReloaded(true); // Ensure the page is reloaded only once
+        if (getdata.status === "success") {
+            if (!localStorage.getItem('pageReloaded')) {
+                console.log("page reload initiated");
+                localStorage.setItem('pageReloaded', true);
+                localStorage.setItem('savedVideoUrl', getdata.url); // Store video URL
+                localStorage.setItem('savedGifUrl', getdata.gif_url); // Store GIF URL
+                window.location.reload();
+            }
         }
-    }, []); // Effect runs when getdata.status changes
+    }, [getdata.status]);
+
+//    useEffect(() => {
+//         if (getdata.status === "success" && !pageReloaded) {
+//             localStorage.setItem('savedVideoUrl', getdata.url);
+//             localStorage.setItem('savedGifUrl', getdata.gif_url);
+//             window.location.reload();
+//             setPageReloaded(true);
+//         }
+//     }, []); 
 
     const fetchData = () => {
         fetch(`https://runwayml.p.rapidapi.com/status?uuid=${id}`, {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '5b79a64edbmsh42751b43f11af57p17f943jsn21e7b4d8851a',
+                'X-RapidAPI-Key': '8bdce9a8cemshd13478060ca5e16p1de2c8jsn3cf75b553f3c',
                 'X-RapidAPI-Host': 'runwayml.p.rapidapi.com'
             }
         })
@@ -35,15 +48,12 @@ const Generate = ({ params }) => {
             .then((data) => {
                 console.log(data);
                 setgetdata(data);
-                // if (data.status !== "success") {
-                //     setTimeout(fetchData, 1000); // Fetch again after 1 second if status is not "success"
-                // } else {
-                //     setIsLoading(false); // Set loading to false when status is "success"
-                // }
+                setLoading(false);
             })
             .catch(error => {
                 console.error('Error:', error);
                 setError('Failed to fetch data');
+                setLoading(false);
                 // setIsLoading(false); // Set loading to false in case of error
             });
     };
@@ -51,12 +61,13 @@ const Generate = ({ params }) => {
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: `url('https://i.gifer.com/J4o.gif')` }}>
             <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
-                {getdata.status === "success" ? (
+            {loading ? (
+                    <div>Generating... This will take a few minutes</div>
+                ) : (
                     <div>
                         <h1 className="flex justify-center items-center text-3xl font-bold mb-4">{getdata.status}</h1>
                         <h1 className='  text-xl font-bold'>Video: </h1>
                         {getdata.url && (
-
                             <video controls className="mb-4">
                                 <source src={getdata.url} type="video/mp4" />
                                 Your browser does not support the video tag.
@@ -65,8 +76,6 @@ const Generate = ({ params }) => {
                         <h1 className='  text-xl font-bold'>GIF: </h1>
                         <img src={getdata.gif_url} alt="Generated GIF" className="w-full" />
                     </div>
-                ) : (
-                    <div>Generating... This will take a few minutes</div>
                 )}
                 {error && <div>Error: {error}</div>}
             </div>

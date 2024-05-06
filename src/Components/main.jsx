@@ -20,7 +20,7 @@ const MainHome = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-RapidAPI-Key': '5b79a64edbmsh42751b43f11af57p17f943jsn21e7b4d8851a',
+                    'X-RapidAPI-Key': '8bdce9a8cemshd13478060ca5e16p1de2c8jsn3cf75b553f3c',
                     'X-RapidAPI-Host': 'runwayml.p.rapidapi.com'
                 },
                 body: JSON.stringify({
