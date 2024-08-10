@@ -27,15 +27,6 @@ const Generate = ({ params }) => {
         }
     }, [getdata.status]);
 
-//    useEffect(() => {
-//         if (getdata.status === "success" && !pageReloaded) {
-//             localStorage.setItem('savedVideoUrl', getdata.url);
-//             localStorage.setItem('savedGifUrl', getdata.gif_url);
-//             window.location.reload();
-//             setPageReloaded(true);
-//         }
-//     }, []); 
-
     const fetchData = () => {
         fetch(`https://runwayml.p.rapidapi.com/status?uuid=${id}`, {
             method: 'GET',
@@ -48,13 +39,15 @@ const Generate = ({ params }) => {
             .then((data) => {
                 console.log(data);
                 setgetdata(data);
-                setLoading(false);
+                setLoading(true);
+                if(data.status === 'success') {
+                    setLoading(false);
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
                 setError('Failed to fetch data');
                 setLoading(false);
-                // setIsLoading(false); // Set loading to false in case of error
             });
     };
 
